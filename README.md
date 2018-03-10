@@ -1,1 +1,1 @@
-# python_training
+# Work directory for python_training
