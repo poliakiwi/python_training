@@ -22,7 +22,7 @@ class test_add_contact(unittest.TestCase):
         self.open_page_add_new_contact(wd)
         self.fill_contact(wd, Contact(fir="fir1", mid="mid1", las="las1", nic="nic1", tit="tit1", com="com1", add_1="add1",
                      tel_1="111", tel_2="222", tel_3="333", tel_4="444", mail_1="a1@a.ru", mail_2="a2@a.ru",
-                     mail_3="a3@a.ru", hom="hom1.ru", yea_1="82", yea_2="81", add_2="add2", hom_2="hom2", not_2="not2"))
+                     mail_3="a3@a.ru", hom="hom1.ru", dat_1="21_11", yea_1="82", dat_2="27_11", yea_2="81", add_2="add2", hom_2="hom2", not_2="not2"))
         self.click_to_create_contact(wd)
         self.home_page(wd)
         self.logout(wd)
@@ -34,7 +34,7 @@ class test_add_contact(unittest.TestCase):
         self.open_page_add_new_contact(wd)
         self.fill_contact(wd, Contact(fir="", mid="", las="", nic="", tit="", com="", add_1="",
                      tel_1="", tel_2="", tel_3="", tel_4="", mail_1="", mail_2="",
-                     mail_3="", hom="", yea_1="", yea_2="", add_2="", hom_2="", not_2=""))
+                     mail_3="", hom="", dat_1="", yea_1="", dat_2="", yea_2="", add_2="", hom_2="", not_2=""))
         self.click_to_create_contact(wd)
         self.home_page(wd)
         self.logout(wd)
@@ -94,17 +94,19 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(cont.hom)
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[23]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[23]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[12]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[12]").click()
+        if cont.dat_1 == "21_11":
+            if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[23]").is_selected():
+                wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[23]").click()
+            if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[12]").is_selected():
+                wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[12]").click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(cont.yea_1)
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[29]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[29]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[12]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[12]").click()
+        if cont.dat_2 == "27_11":
+            if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[29]").is_selected():
+                wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[29]").click()
+            if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[12]").is_selected():
+                wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[12]").click()
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(cont.yea_2)
