@@ -14,10 +14,10 @@ class test_add_contact(unittest.TestCase):
         self.wd = WebDriver(capabilities={"marionette": False})
         self.wd.implicitly_wait(60)
     
-    def test_test_add_contact(self):
+    def test_add_contact(self):
         wd = self.wd
         self.open_site(wd)
-        self.login(wd)
+        self.login(wd, user="admin", password="secret")
         self.open_page_add_new_contact(wd)
         self.fill_contact(wd)
         self.click_to_create_contact(wd)
@@ -106,14 +106,14 @@ class test_add_contact(unittest.TestCase):
     def open_page_add_new_contact(self, wd):
         wd.find_element_by_link_text("add new").click()
 
-    def login(self, wd):
+    def login(self, wd, user, password):
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("user").send_keys(user)
         wd.find_element_by_id("LoginForm").click()
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys("secret")
+        wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
 
     def open_site(self, wd):
