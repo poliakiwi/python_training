@@ -9,7 +9,7 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-    def fill_contact(self, cont):
+    def create(self, cont):
         wd = self.app.wd
         self.open_page_add_new_contact()
         wd.find_element_by_name("firstname").click()
