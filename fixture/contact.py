@@ -86,3 +86,18 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         #return to home page
         self.app.click_to_home_page()
+
+    def edit_first(self):
+        wd = self.app.wd
+        #open home page
+        self.app.click_to_home_page()
+        #click to edit
+        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        # changed name
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys("changed firstname")
+        #click to finish
+        wd.find_element_by_name("update").click()
+        #return to home page
+        self.app.click_to_home_page()
