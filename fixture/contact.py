@@ -72,3 +72,17 @@ class ContactHelper:
     def open_page_add_new_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
+
+    def del_first(self):
+        wd = self.app.wd
+        #open home page
+        self.app.click_to_home_page()
+        #click on check-box
+        wd.find_element_by_name("selected[]").click()
+        #click on delete
+        wd.find_element_by_xpath("//input[@onclick='DeleteSel()']").click()
+        # wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        #click to agree
+        wd.switch_to_alert().accept()
+        #return to home page
+        self.app.click_to_home_page()
