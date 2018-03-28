@@ -1,5 +1,3 @@
 
-def test_edit_first_contact(app):
-    app.session.login(username="admin", password="secret")
-    app.contacts.edit_first()
-    app.session.logout()
+def test_edit_first_contact_name(app):
+    app.contacts.edit_first("changed firstname")

@@ -87,7 +87,7 @@ class ContactHelper:
         #return to home page
         self.app.click_to_home_page()
 
-    def edit_first(self):
+    def edit_first(self, text):
         wd = self.app.wd
         #open home page
         self.app.click_to_home_page()
@@ -96,7 +96,7 @@ class ContactHelper:
         # changed name
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys("changed firstname")
+        wd.find_element_by_name("firstname").send_keys(text)
         #click to finish
         wd.find_element_by_name("update").click()
         #return to home page
