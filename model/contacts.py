@@ -1,7 +1,9 @@
 
 
 class Contact:
-    def __init__(self, fir, mid, las, nic, tit, com, add_1, tel_1, tel_2, tel_3, tel_4, mail_1, mail_2, mail_3, hom, add_2, hom_2, not_2):
+    def __init__(self, fir=None, mid=None, las=None, nic=None, tit=None, com=None, add_1=None, tel_1=None,
+                     tel_2=None, tel_3=None, tel_4=None, mail_1=None, mail_2=None, mail_3=None, hom=None, add_2=None,
+                     hom_2=None, not_2=None):
         self.fir = fir
         self.mid = mid
         self.las = las
