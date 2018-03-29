@@ -10,12 +10,12 @@ class ContactHelper:
         self.open_page_add_new_contact()
         self.fill_form(cont)
         self.click_to_create_contact()
-        self.app.click_to_home_page()
+        self.go_home()
 
     def del_first(self):
         wd = self.app.wd
         #open home page
-        self.app.click_to_home_page()
+        self.go_home()
         #click on check-box
         wd.find_element_by_name("selected[]").click()
         #click on delete
@@ -23,22 +23,20 @@ class ContactHelper:
         # wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         #click to agree
         wd.switch_to_alert().accept()
-        #return to home page
-        self.app.click_to_home_page()
+        self.go_home()
 
     def edit_first(self, new_contact_data):
         wd = self.app.wd
         #open home page
-        self.app.click_to_home_page()
+        self.go_home()
         #click to edit
         wd.find_element_by_xpath("//img[@title='Edit']").click()
         # changed
         self.fill_form(new_contact_data)
-        # self.change_field("firstname", text)
         #click to finish
         wd.find_element_by_name("update").click()
         #return to home page
-        self.app.click_to_home_page()
+        self.go_home()
 
     def click_to_create_contact(self):
         wd = self.app.wd
@@ -51,7 +49,7 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         #open home page
-        self.app.click_to_home_page()
+        self.go_home()
         return len(wd.find_elements_by_name("selected[]"))
 
     def fill_form(self, cont):
@@ -81,3 +79,8 @@ class ContactHelper:
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
+
+    def go_home(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_xpath("//input[@onclick='MailSelection()']")) > 0):
+            wd.find_element_by_link_text("home").click()
