@@ -1,9 +1,9 @@
 from model.group import Group
 
 def test_edit_first_group_name(app):
-    old_groups = app.groups.get_groups_list()
     if app.groups.count() == 0:
         app.groups.create(Group(name="Test"))
+    old_groups = app.groups.get_groups_list()
     newG = Group(name="New name")
     newG.id = old_groups[0].id
     app.groups.edit_first(newG)
