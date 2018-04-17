@@ -11,6 +11,7 @@ class ContactHelper:
         self.fill_form(cont)
         self.click_to_create_contact()
         self.go_home()
+        self.cont_cache = None
 
     def del_first(self):
         wd = self.app.wd
@@ -24,6 +25,7 @@ class ContactHelper:
         #click to agree
         wd.switch_to_alert().accept()
         self.go_home()
+        self.cont_cache = None
 
     def edit_first(self, new_contact_data):
         wd = self.app.wd
@@ -37,6 +39,7 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         #return to home page
         self.go_home()
+        self.cont_cache = None
 
     def click_to_create_contact(self):
         wd = self.app.wd
@@ -85,18 +88,21 @@ class ContactHelper:
         if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_xpath("//input[@onclick='MailSelection()']")) > 0):
             wd.find_element_by_link_text("home").click()
 
+    cont_cache = None
+
     def get_list(self):
         wd = self.app.wd
-        self.go_home()
-        listC = []
-        for element in wd.find_elements_by_css_selector("tr[name='entry']"):
-            lastN = element.find_element_by_xpath("td[2]").text
-            firsN = element.find_element_by_xpath("td[3]").text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            listC.append(Contact(las=lastN, fir=firsN, id=id))
+        if self.cont_cache is None:
+            self.go_home()
+            self.cont_cache = []
+            for element in wd.find_elements_by_css_selector("tr[name='entry']"):
+                lastN = element.find_element_by_xpath("td[2]").text
+                firsN = element.find_element_by_xpath("td[3]").text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.cont_cache.append(Contact(las=lastN, fir=firsN, id=id))
         # for element in wd.find_elements_by_name("entry"):
         #     lastN = wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[2]")
         #     firsN = wd.find_element_by_xpath("/td[3]")
         #     id = element.find_element_by_name("selected[]").get_attribute("value")
         #     listC.append(Contact(las=lastN, fir=firsN, id=id))
-        return listC
+        return list(self.cont_cache)
