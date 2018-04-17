@@ -14,11 +14,14 @@ class ContactHelper:
         self.cont_cache = None
 
     def del_first(self):
+        self.del_by_index(0)
+
+    def del_by_index(self, index):
         wd = self.app.wd
         #open home page
         self.go_home()
         #click on check-box
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         #click on delete
         wd.find_element_by_xpath("//input[@onclick='DeleteSel()']").click()
         # wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
@@ -28,11 +31,15 @@ class ContactHelper:
         self.cont_cache = None
 
     def edit_first(self, new_contact_data):
+        self.edit_by_index(0, new_contact_data)
+
+    def edit_by_index(self, index, new_contact_data):
         wd = self.app.wd
         #open home page
         self.go_home()
         #click to edit
-        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        wd.find_element_by_xpath("//tr["+str(index+2)+"]/td[8]").click()
+        # wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
         # changed
         self.fill_form(new_contact_data)
         #click to finish
