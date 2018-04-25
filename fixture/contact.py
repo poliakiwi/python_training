@@ -107,9 +107,11 @@ class ContactHelper:
             for element in wd.find_elements_by_css_selector("tr[name='entry']"):
                 las = element.find_element_by_xpath("td[2]").text
                 fir = element.find_element_by_xpath("td[3]").text
+                add_1 = element.find_element_by_xpath("td[4]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
+                all_mail = element.find_element_by_xpath("td[5]").text
                 all_tel = element.find_element_by_xpath("td[6]").text
-                self.cont_cache.append(Contact(las=las, fir=fir, id=id, all_tel_from_home=all_tel))
+                self.cont_cache.append(Contact(las=las, fir=fir, id=id, add_1=add_1, all_mail_from_home=all_mail, all_tel_from_home=all_tel))
         return list(self.cont_cache)
 
     def open_edit_by_index(self, index):
@@ -145,7 +147,12 @@ class ContactHelper:
         tel_2 = wd.find_element_by_name("mobile").get_attribute("value")
         tel_3 = wd.find_element_by_name("work").get_attribute("value")
         hom_2 = wd.find_element_by_name("phone2").get_attribute("value")
-        return Contact(las=las, fir=fir, id=id, tel_1=tel_1, tel_2=tel_2, tel_3=tel_3, hom_2=hom_2)
+        add_1 = wd.find_element_by_name("address").get_attribute("value")
+        mail_1 = wd.find_element_by_name("email").get_attribute("value")
+        mail_2 = wd.find_element_by_name("email2").get_attribute("value")
+        mail_3 = wd.find_element_by_name("email3").get_attribute("value")
+        return Contact(las=las, fir=fir, id=id, tel_1=tel_1, tel_2=tel_2, tel_3=tel_3, hom_2=hom_2, add_1=add_1,
+                       mail_1=mail_1, mail_2=mail_2, mail_3=mail_3)
 
     def get_info_from_view(self, index):
         wd = self.app.wd
