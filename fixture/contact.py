@@ -47,6 +47,7 @@ class ContactHelper:
         #return to home page
         self.go_home()
         self.cont_cache = None
+        self.view_by_index(index)
 
     def click_to_create_contact(self):
         wd = self.app.wd
@@ -113,3 +114,14 @@ class ContactHelper:
         #     id = element.find_element_by_name("selected[]").get_attribute("value")
         #     listC.append(Contact(las=lastN, fir=firsN, id=id))
         return list(self.cont_cache)
+
+    def view_by_index(self, index):
+        wd = self.app.wd
+        #open home page
+        self.go_home()
+        #click to view details
+        # wd.find_element_by_xpath("//tr["+str(index+2)+"]/td[7]").click()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[6]
+        cell.find_element_by_tag_name("a").click()
+
