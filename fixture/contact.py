@@ -1,4 +1,5 @@
 from model.contacts import Contact
+import re
 
 class ContactHelper:
 
@@ -47,7 +48,7 @@ class ContactHelper:
         #return to home page
         self.go_home()
         self.cont_cache = None
-        self.view_by_index(index)
+        # self.view_by_index(index)
 
     def click_to_create_contact(self):
         wd = self.app.wd
@@ -104,15 +105,12 @@ class ContactHelper:
             self.go_home()
             self.cont_cache = []
             for element in wd.find_elements_by_css_selector("tr[name='entry']"):
-                lastN = element.find_element_by_xpath("td[2]").text
-                firsN = element.find_element_by_xpath("td[3]").text
+                las = element.find_element_by_xpath("td[2]").text
+                fir = element.find_element_by_xpath("td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.cont_cache.append(Contact(las=lastN, fir=firsN, id=id))
-        # for element in wd.find_elements_by_name("entry"):
-        #     lastN = wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[2]")
-        #     firsN = wd.find_element_by_xpath("/td[3]")
-        #     id = element.find_element_by_name("selected[]").get_attribute("value")
-        #     listC.append(Contact(las=lastN, fir=firsN, id=id))
+                all_tel = element.find_element_by_xpath("td[6]").text.splitlines()
+                self.cont_cache.append(Contact(las=las, fir=fir, id=id, tel_1=all_tel[0], tel_2=all_tel[1],
+                                               tel_3=all_tel[2], hom_2=all_tel[3]))
         return list(self.cont_cache)
 
     def open_edit_by_index(self, index):
@@ -134,4 +132,33 @@ class ContactHelper:
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[6]
         cell.find_element_by_tag_name("a").click()
+
+    def get_info_from_edit(self, index):
+        wd = self.app.wd
+        #open home page
+        self.go_home()
+        #click to edit
+        self.open_edit_by_index(index)
+        fir = wd.find_element_by_name("firstname").get_attribute("value")
+        las = wd.find_element_by_name("lastname").get_attribute("value")
+        id = wd.find_element_by_name("id").get_attribute("value")
+        tel_1 = wd.find_element_by_name("home").get_attribute("value")
+        tel_2 = wd.find_element_by_name("mobile").get_attribute("value")
+        tel_3 = wd.find_element_by_name("work").get_attribute("value")
+        hom_2 = wd.find_element_by_name("phone2").get_attribute("value")
+        return Contact(las=las, fir=fir, id=id, tel_1=tel_1, tel_2=tel_2, tel_3=tel_3, hom_2=hom_2)
+
+    def get_info_from_view(self, index):
+        wd = self.app.wd
+        #open home page
+        self.go_home()
+        #click to edit
+        self.view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        tel_1 = re.search("H: (.*)", text).group(1)
+        tel_2 = re.search("M: (.*)", text).group(1)
+        tel_3 = re.search("W: (.*)", text).group(1)
+        hom_2 = re.search("P: (.*)", text).group(1)
+        return Contact(tel_1=tel_1, tel_2=tel_2, tel_3=tel_3, hom_2=hom_2)
+
 
