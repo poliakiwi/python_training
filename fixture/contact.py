@@ -108,9 +108,8 @@ class ContactHelper:
                 las = element.find_element_by_xpath("td[2]").text
                 fir = element.find_element_by_xpath("td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                all_tel = element.find_element_by_xpath("td[6]").text.splitlines()
-                self.cont_cache.append(Contact(las=las, fir=fir, id=id, tel_1=all_tel[0], tel_2=all_tel[1],
-                                               tel_3=all_tel[2], hom_2=all_tel[3]))
+                all_tel = element.find_element_by_xpath("td[6]").text
+                self.cont_cache.append(Contact(las=las, fir=fir, id=id, all_tel_from_home=all_tel))
         return list(self.cont_cache)
 
     def open_edit_by_index(self, index):
