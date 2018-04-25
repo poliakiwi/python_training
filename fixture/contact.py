@@ -38,8 +38,8 @@ class ContactHelper:
         #open home page
         self.go_home()
         #click to edit
-        wd.find_element_by_xpath("//tr["+str(index+2)+"]/td[8]").click()
-        # wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
+        # wd.find_element_by_xpath("//tr["+str(index+2)+"]/td[8]").click()
+        self.open_edit_by_index(index)
         # changed
         self.fill_form(new_contact_data)
         #click to finish
@@ -114,6 +114,16 @@ class ContactHelper:
         #     id = element.find_element_by_name("selected[]").get_attribute("value")
         #     listC.append(Contact(las=lastN, fir=firsN, id=id))
         return list(self.cont_cache)
+
+    def open_edit_by_index(self, index):
+        wd = self.app.wd
+        #open home page
+        self.go_home()
+        #click to edit
+        # wd.find_element_by_xpath("//tr["+str(index+2)+"]/td[8]").click()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
 
     def view_by_index(self, index):
         wd = self.app.wd
