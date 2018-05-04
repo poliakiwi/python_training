@@ -11,9 +11,9 @@ def test_phones_and_other_info_on_home(app):
     contact_from_home = cont_list[index]
     contact_from_edit = app.contacts.get_info_from_edit(index)
     assert contact_from_home.all_tel_from_home == merge_tel(contact_from_edit)
-    assert contact_from_home.fir == one_blank(contact_from_edit.fir)
-    assert contact_from_home.las == one_blank(contact_from_edit.las)
-    assert contact_from_home.add_1 == one_blank(contact_from_edit.add_1)
+    assert contact_from_home.fir == clear_blank(contact_from_edit.fir)
+    assert contact_from_home.las == clear_blank(contact_from_edit.las)
+    assert contact_from_home.add_1 == clear_blank(contact_from_edit.add_1)
     assert contact_from_home.all_mail_from_home == merge_mail(contact_from_edit)
 
 
@@ -30,10 +30,10 @@ def clear(s):
     return re.sub("[() -]", "", s)
 
 
-def one_blank(s):
-    str = re.sub(" +", " ", s)
-    str = re.sub(" $", "", str)
-    return str
+def clear_blank(s):
+    s1 = re.sub(" +", " ", s)
+    s1 = re.sub(" $", "", s1)
+    return s1
 
 
 def merge_tel(cont):
