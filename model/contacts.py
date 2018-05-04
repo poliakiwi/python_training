@@ -27,10 +27,10 @@ class Contact:
         self.all_mail_from_home = all_mail_from_home
 
     def __repr__(self):
-        return "%s: (%s, %s)" % (self.id, self.las, self.fir)
+        return "%s:%s,%s,%s" % (self.id, self.las, self.fir, self.add_1)
 
     def __eq__(self, other):
-        return (self.id == other.id or self.id is None or other.id is None) and self.las == other.las and self.fir == other.fir
+        return (self.id == other.id or self.id is None or other.id is None) and self.las == other.las and self.fir == other.fir and self.add_1 == other.add_1
 
     def id_or_max(self):
         if self.id:

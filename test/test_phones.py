@@ -31,7 +31,9 @@ def clear(s):
 
 
 def one_blank(s):
-    return re.sub(" +", " ", s)
+    str = re.sub(" +", " ", s)
+    str = re.sub(" $", "", str)
+    return str
 
 
 def merge_tel(cont):
