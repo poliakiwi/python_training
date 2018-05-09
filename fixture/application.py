@@ -11,7 +11,7 @@ class Application:
         elif browser == "chrome":
             self.wd = webdriver.Chrome()
         elif browser == "ie":
-            self.wd = webdriver.Ie()
+            self.wd = webdriver.Ie() # (executable_path='C:\Python36\Scripts\IEDriverServer.exe')
         else:
             raise ValueError("unidentified browser - %s" % browser )
 
