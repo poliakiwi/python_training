@@ -3,8 +3,8 @@ from model.group import Group
 import re
 
 
-def test_add_group(app, data_groups):
-    gr = data_groups
+def test_add_group(app, json_groups):
+    gr = json_groups
     old_groups = app.groups.get_groups_list()
     app.groups.create(gr)
     new_groups = app.groups.get_groups_list()

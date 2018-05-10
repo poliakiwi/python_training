@@ -3,8 +3,8 @@ from model.contacts import Contact
 import re
 
 
-def test_add_contact(app, data_contacts):
-    cont = data_contacts
+def test_add_contact(app, json_contacts):
+    cont = json_contacts
     old_cont = app.contacts.get_list()
     # newC = Contact(fir="fir1", mid="mid1", las="las1", nic="nic1", tit="tit1", com="com1", add_1="add1",
     #                             tel_1="111", tel_2="222", tel_3="333", tel_4="444", mail_1="a1@a.ru", mail_2="a2@a.ru",
