@@ -25,7 +25,19 @@ class ContactHelper:
         wd.find_elements_by_name("selected[]")[index].click()
         #click on delete
         wd.find_element_by_xpath("//input[@onclick='DeleteSel()']").click()
-        # wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        #click to agree
+        wd.switch_to_alert().accept()
+        self.go_home()
+        self.cont_cache = None
+
+    def del_by_id(self, id):
+        wd = self.app.wd
+        #open home page
+        self.go_home()
+        #click on check-box
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        #click on delete
+        wd.find_element_by_xpath("//input[@onclick='DeleteSel()']").click()
         #click to agree
         wd.switch_to_alert().accept()
         self.go_home()

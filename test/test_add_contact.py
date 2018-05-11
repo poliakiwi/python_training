@@ -16,7 +16,7 @@ def test_add_contact(app, db, check_ui, json_contacts):
         s = re.sub(" $", "", s)
         return s
     def clean(cont):
-        return Contact(id=cont.id, fir=clear_blank(cont.fir.strip()), las=clear_blank(cont.las.strip()), add_1=clear_blank(cont.add_1.strip()))
+        return Contact(id=cont.id, fir=clear_blank(cont.fir), las=clear_blank(cont.las), add_1=clear_blank(cont.add_1))
     if check_ui:
         ui_list = app.contacts.get_list()
         db_list = map(clean, new_cont)
