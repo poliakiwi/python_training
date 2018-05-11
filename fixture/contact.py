@@ -60,7 +60,21 @@ class ContactHelper:
         #return to home page
         self.go_home()
         self.cont_cache = None
-        # self.view_by_index(index)
+
+    def edit_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        #open home page
+        self.go_home()
+        #click to edit
+        # wd.find_element_by_xpath("//tr["+str(index+2)+"]/td[8]").click()
+        self.open_edit_by_id(id)
+        # changed
+        self.fill_form(new_contact_data)
+        #click to finish
+        wd.find_element_by_name("update").click()
+        #return to home page
+        self.go_home()
+        self.cont_cache = None
 
     def click_to_create_contact(self):
         wd = self.app.wd
@@ -135,6 +149,49 @@ class ContactHelper:
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
+
+    def open_edit_by_id(self, id):
+        wd = self.app.wd
+        #open home page
+        self.go_home()
+        # i = 0
+        # for element in wd.find_elements_by_css_selector("tr[name='entry']"):
+        #     ids = element.find_element_by_name("selected[]").get_attribute("value")
+        #     if ids == id:
+        #         wd.find_element_by_xpath("//tr[" + str(i + 2) + "]/td[8]").click()
+        #     i = i + 1
+
+
+        # for row in wd.find_elements_by_xpath('//input[@value="%s"]' % id):
+        #     cell = row.find_elements_by_tag_name("td")
+        #     cell.find_element_by_tag_name("a").click()
+        #
+        # for i in ids:
+        #     if ids == str(id):
+        #             element.find_element_by_xpath("td[8]").click()
+
+        # wd.find_element_by_css_selector("input[value='%s']" % id)
+        # for element in wd.find_elements_by_css_selector("input[value='%s']" % id):
+        #     cell = element.find_elements_by_tag_name("td")[5]
+        #     cell.find_element_by_tag_name("a").click()
+
+        # wd.find_element_by_css_selector("input[value='%s']" % id)
+        # wd.find_element_by_xpath("//td[8]").click()
+        # row = wd.find_elements_by_css_selector("input[value='%s']" % id)
+        # row.find_element_by_xpath("td[7]").click()
+        #click to edit
+        # wd.find_element_by_xpath("//tr["+str(index+2)+"]/td[8]").click()
+        # for row in wd.find_elements_by_name("input"):
+        #     if row.get_attribute("value") == id:
+
+        # for row in wd.find_elements_by_name("entry"):
+        #     if row.find_element_by_name("selected[]").get_attribute("value") == id:
+        #         cell = row.find_elements_by_tag_name("td")[7]
+        #         cell.find_element_by_tag_name("a").click()
+            # all_tel = element.find_element_by_xpath("td[6]").text
+        # row.find_element_by_tag_name("td")[7].click()
+        # cell = row.find_elements_by_tag_name("td")[7]
+        # cell.find_element_by_tag_name("a").click()
 
     def view_by_index(self, index):
         wd = self.app.wd
