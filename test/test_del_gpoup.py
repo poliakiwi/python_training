@@ -10,9 +10,9 @@ def test_del_some_group(app, db, check_ui):
     group = random.choice(old_groups)
     app.groups.del_group_by_id(group.id)
     new_groups = db.get_group_list()
-    assert len(old_groups) - 1 == len(new_groups)
     old_groups.remove(group)
     assert old_groups == new_groups
+
     def clean(group):
         group.name = re.sub(" +", " ", group.name)
         return Group(id=group.id, name=group.name.strip())

@@ -1,29 +1,24 @@
 from model.group import Group
-from random import randrange
+import random
+import re
 
-
-def test_edit_group_name_by_index(app):
-    if app.groups.count() == 0:
+def test_edit_group_name_by_index(app, db, check_ui):
+    if len(db.get_group_list()) == 0:
         app.groups.create(Group(name="Test"))
-    old_groups = app.groups.get_groups_list()
-    index = randrange(len(old_groups))
+    old_groups = db.get_group_list()
+    group = random.choice(old_groups)
     newG = Group(name="New name")
-    newG.id = old_groups[index].id
-    app.groups.edit_by_index(index, newG)
-    new_groups = app.groups.get_groups_list()
-    assert len(old_groups) == len(new_groups)
-    old_groups[index] = newG
+    newG.id = group.id
+    app.groups.edit_by_id(group.id, newG)
+    new_groups = db.get_group_list()
+    old_groups.remove(group)
+    old_groups.append(newG)
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
 
-
-# def test_edit_first_group_header(app):
-#     old_groups = app.groups.get_groups_list()
-#     if app.groups.count() == 0:
-#         app.groups.create(Group(header="Test"))
-#     app.groups.edit_first(Group(header="New header"))
-#     new_groups = app.groups.get_groups_list()
-#     assert len(old_groups) == len(new_groups)
-
-
-
-
+    def clean(group):
+        group.name = re.sub(" +", " ", group.name)
+        return Group(id=group.id, name=group.name.strip())
+    if check_ui:
+        ui_list = app.groups.get_groups_list()
+        db_list = map(clean, new_groups)
+        assert sorted(db_list, key=Group.id_or_max) == sorted(ui_list, key=Group.id_or_max)
